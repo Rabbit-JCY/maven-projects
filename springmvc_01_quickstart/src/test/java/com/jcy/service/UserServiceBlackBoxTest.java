@@ -1,6 +1,5 @@
 package com.jcy.service;
 
-
 import com.jcy.config.SpringConfig;
 import com.jcy.domain.User;
 import com.jcy.service.UserService;
@@ -68,7 +67,57 @@ public class UserServiceBlackBoxTest {
     }
     @Test
     public void testUpdate(){
+        userService.delete(100);
+        User user1 = new User(100,"100","100");
+        boolean flag1 = userService.update(user1);
+        assert (flag1 == false);
 
+        User user2 = new User(1,"111","111");
+        User user3 = new User(1,"jia","123");
+        userService.delete(1);
+        userService.register(user2);
+        boolean flag2 = userService.update(user3);
+        assert (flag2 == true);
+
+        User user4 = new User(1,"chen","abc");
+        boolean flag3 = userService.update(user4);
+        assert (flag3 == true);
+    }
+
+    @Test
+    public void testFindById(){
+        User user1 = userService.findUserById(1);
+        assert (user1 != null);
+
+        try{
+            User user2 = userService.findUserById(Integer.valueOf("a"));
+            assert (user2 != null);
+        } catch (NumberFormatException e) {
+            System.out.println("user2 is null.");
+        }
+
+        User user3 = userService.findUserById(100);
+        assert (user3 == null);
+    }
+
+    @Test
+    public void testFindAll(){
+        try {
+//            List<User> list1 = userService.findAllUser(1);
+//            assert (list1 == null);
+        } catch (Exception e) {
+            System.out.println("list1 is null");
+        }
+
+        try {
+//            List<User> list2 = userService.findAllUser("a");
+//            assert (list2 == null);
+        } catch (Exception e) {
+            System.out.println("list2 is null");
+        }
+
+        List<User> list3 = userService.findAllUser();
+        assert (list3 != null);
     }
 
 
