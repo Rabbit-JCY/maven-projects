@@ -17,11 +17,21 @@ public class UserController {
 
     @PostMapping
     public String register(@RequestBody User user){
-        userService.register(user);
-        return "success";
+        if(userService.register(user)){
+            return "success";
+        }else{
+            return "failure";
+        }
     }
 
-
+    @PostMapping("/login")
+    public String login(@RequestParam Integer id, @RequestParam String password){
+        if(userService.login(id, password)){
+            return "success";
+        }else{
+            return "failure";
+        }
+    }
 
     @DeleteMapping("/{id}")
     public boolean delete(@PathVariable Integer id) {
