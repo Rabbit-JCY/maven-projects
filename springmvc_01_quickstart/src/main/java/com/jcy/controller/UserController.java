@@ -21,6 +21,8 @@ public class UserController {
         return "success";
     }
 
+
+
     @DeleteMapping("/{id}")
     public boolean delete(@PathVariable Integer id) {
         return userService.delete(id);

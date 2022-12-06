@@ -89,6 +89,21 @@ public class MessageServiceBlackBoxTest {
     }
 
     @Test
+    public void testFindById(){
+        try {
+            messageService.findById(Integer.valueOf("A"));
+        } catch (NumberFormatException e) {
+            System.out.println("error parameter");
+        }
+
+        Message message = messageService.findById(1);
+        assert (message != null);
+
+        Message message1 = messageService.findById(100);
+        assert (message1 == null);
+    }
+
+    @Test
     public void testFindByFromId(){
         try {
             messageService.findByFromId(Integer.valueOf("A"));
@@ -102,6 +117,8 @@ public class MessageServiceBlackBoxTest {
         List<Message> list2 = messageService.findByFromId(100);
         assert (list2.size() == 0);
     }
+
+
 
     @Test
     public void testFindByToId(){

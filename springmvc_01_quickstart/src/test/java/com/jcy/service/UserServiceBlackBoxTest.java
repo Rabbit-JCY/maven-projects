@@ -46,6 +46,7 @@ public class UserServiceBlackBoxTest {
         boolean flag6 = userService.register(user6);
         assert (flag6 == false);
     }
+
     @Test
     public void testDelete(){
         try {
@@ -118,5 +119,23 @@ public class UserServiceBlackBoxTest {
 
         List<User> list3 = userService.findAllUser();
         assert (list3 != null);
+    }
+
+    @Test
+    public void testLogin(){
+        Integer id1 = 2;
+        String password1 = "222";
+        boolean flag1 = userService.login(id1,password1);
+        assert (flag1);
+
+        Integer id2 = 2;
+        String password2 = "333";
+        boolean flag2 = userService.login(id2,password2);
+        assert (!flag2);
+
+        Integer id3 = 100;
+        String password3 = "111";
+        boolean flag3 = userService.login(id3,password3);
+        assert (!flag3);
     }
 }

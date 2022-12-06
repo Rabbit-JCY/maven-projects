@@ -25,6 +25,19 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    public boolean login(Integer id, String password){
+        if(userDao.findUserById(id) == null){
+            return false;
+        }else{
+            User user = userDao.findUserById(id);
+            if(user.getPassword().equals(password)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
     public boolean delete(Integer id) {
         if(userDao.findUserById(id) == null){
             return false;
