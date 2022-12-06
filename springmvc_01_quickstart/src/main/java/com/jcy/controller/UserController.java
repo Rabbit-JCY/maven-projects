@@ -18,7 +18,7 @@ public class UserController {
     @PostMapping
     public String register(@RequestBody User user){
         userService.register(user);
-        return "register successfully!";
+        return "success";
     }
 
     @DeleteMapping("/{id}")

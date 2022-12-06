@@ -20,35 +20,35 @@ public class UserServiceTest {
     private UserService userService;
 
     @Test
-    public void testGetById(){
-        User user = userService.findUserById(1);
-        System.out.println(user.toString());
-    }
-
-    @Test
-    public void testGetAll(){
-        List<User> books = userService.findAllUser();
-        System.out.println(books);
-    }
-
-    @Test
-    public void testDelete(){
-        userService.delete(1);
-        User book = userService.findUserById(1);
-        System.out.println(book);
-    }
-
-    @Test
     public void testRegister(){
-        User user = new User(4,"2","3");
-        userService.register(user);
-        System.out.println(user);
+        User user1 = new User(-1,"cj220","123");
+        boolean flag1 = userService.register(user1);
+        assert (flag1 == false);
+
+        User user2 = new User(0,"cj220","123");
+        boolean flag2 = userService.register(user2);
+        assert (flag2 == false);
+
+        userService.delete(1);
+        User user3 = new User(1,"cj220","123");
+        boolean flag3 = userService.register(user3);
+        assert (flag3 == true);
+
+        User user4 = new User(1,"cj220","abc");
+        boolean flag4 = userService.register(user4);
+        assert (flag4 == false);
+
+        userService.delete(10);
+        User user5 = new User(10,"chen","123");
+        boolean flag5 = userService.register(user5);
+        assert (flag5 == true);
+
+        User user6 = new User(10,"chen","1@3");
+        boolean flag6 = userService.register(user6);
+        assert (flag6 == false);
     }
 
-    @Test
-    public void testUpdate(){
 
-    }
 
 
 }

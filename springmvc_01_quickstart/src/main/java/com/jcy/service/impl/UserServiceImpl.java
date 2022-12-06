@@ -15,13 +15,23 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     public boolean register(User user) {
-        userDao.register(user);
-        return true;
+        if(user.getId() <= 0 ){
+            return false;
+        }else if(userDao.findUserById(user.getId()) != null){
+            return false;
+        }else{
+            userDao.register(user);
+            return true;
+        }
     }
 
     public boolean delete(Integer id) {
-        userDao.delete(id);
-        return true;
+        if(userDao.findUserById(id) == null){
+            return false;
+        }else{
+            userDao.delete(id);
+            return true;
+        }
     }
 
    public boolean update(User user){
