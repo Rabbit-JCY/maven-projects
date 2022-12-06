@@ -17,18 +17,35 @@ public class MessageServiceImpl implements MessageService {
     private MessageDao messageDao;
 
     public boolean send(Message message) {
-        messageDao.send(message);
-        return true;
+        if(message.getId() <= 0){
+            return false;
+        } else if (messageDao.findById(message.getId()) != null) {
+            return false;
+        }else{
+            messageDao.send(message);
+            return true;
+        }
     }
 
     public boolean delete(Integer id) {
-        messageDao.delete(id);
-        return true;
+        if(messageDao.findById(id) == null){
+            return false;
+        }else{
+            messageDao.delete(id);
+            return true;
+        }
+
     }
 
     public boolean update(Message message) {
-        messageDao.update(message);
-        return true;
+        if(message.getId() <= 0){
+            return false;
+        } else if (messageDao.findById(message.getId()) == null) {
+            return false;
+        }else{
+            messageDao.update(message);
+            return true;
+        }
     }
 
     public List<Message> findByFromId(Integer from_id) {

@@ -119,6 +119,4 @@ public class UserServiceBlackBoxTest {
         List<User> list3 = userService.findAllUser();
         assert (list3 != null);
     }
-
-
 }
