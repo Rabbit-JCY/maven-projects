@@ -1,4 +1,4 @@
-package com.jcy.service.BlackboxTesting;
+package com.jcy.service;
 
 
 import com.jcy.config.SpringConfig;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringConfig.class)
-public class UserServiceTest {
+public class UserServiceBlackBoxTest {
 
     @Autowired
     private UserService userService;
@@ -47,8 +47,29 @@ public class UserServiceTest {
         boolean flag6 = userService.register(user6);
         assert (flag6 == false);
     }
+    @Test
+    public void testDelete(){
+        try {
+            boolean flag1 = userService.delete(Integer.valueOf("a"));
+            assert (flag1 == false);
+        } catch (NumberFormatException e) {
+            System.out.println("flag1 is false.");
+        }
 
+        if(userService.findUserById(1) == null){
+            User user = new User(1,"111","111");
+            userService.register(user);
+        }
+        boolean flag2 = userService.delete(1);
+        assert (flag2 == true);
 
+        boolean flag3 = userService.delete(100);
+        assert (flag3 == false);
+    }
+    @Test
+    public void testUpdate(){
+
+    }
 
 
 }
