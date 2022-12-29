@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/iGSE" />
     <file type="web" url="file://$PROJECT_DIR$/springmvc_01_quickstart" />
     <file type="web" url="file://$PROJECT_DIR$/web01" />
   </component>
@@ -9,7 +10,13 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/springmvc_01_quickstart/pom.xml" />
+        <option value="$PROJECT_DIR$/iGSE/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/springmvc_01_quickstart/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_19" project-jdk-name="corretto-1.8" project-jdk-type="JavaSDK">
