@@ -11,8 +11,47 @@
     <title>Login</title>
 </head>
 
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#login").click(function(){
+            alert("log in");
+            var params = {
+                "email" : $("#eml").val(),
+                "password" : $("#pwd").val()
+            }
+
+            $.ajax({
+                url:"/login",
+                type:"Post",
+                contentType:"application/json",
+                data:JSON.stringify(params),
+                success:function (result) {
+                    // alert(result["customer_id"]);
+                    localStorage.setItem("email",$("#eml"));
+                    window.location.replace("dashboard.jsp");
+
+                }
+            });
+        })
+
+        $("#register").click(function() {
+            window.location.replace("register.jsp");
+        })
+
+    });
+</script>
+
 <body>
 <h1>Login</h1>
+
+email:       <input type="text" name="email" id="eml"><br>
+password:    <input type="password" name="password" id="pwd"><br>
+
+<input type="button" value="log in" id="login">
+<input type="button" value="register" id="register">
+
+
 </body>
 
 </html>

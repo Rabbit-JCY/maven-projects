@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Insert;
 
 public interface ReadingDao {
 
-    @Insert("insert into Reading values(#{reading_id},#{customer_id},#{submission_date},#{elec_readings_day}," +
+    @Insert("insert into Reading values(NULL,#{customer_id},#{submission_date},#{elec_readings_day}," +
             "#{elet_reading_night},#{gas_reading},#{status})")
     public void insert(Reading reading);
 

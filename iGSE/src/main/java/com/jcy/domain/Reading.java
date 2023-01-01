@@ -1,28 +1,48 @@
 package com.jcy.domain;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Reading {
 
     private Integer reading_id;
     private String customer_id;
-    private Date submission_date;
+
+    DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
+    private Date submission_date = fmt.parse(fmt.format(new Date()));
     private float elec_readings_day;
     private float elet_reading_night;
     private float gas_reading;
     private String status;
 
-    public Reading() {
+    public Reading() throws ParseException {
     }
 
-    public Reading(Integer reading_id, String customer_id, Date submission_date, float elec_readings_day, float elet_reading_night, float gas_reading, String status) {
-        this.reading_id = reading_id;
+    public Reading(String customer_id, float elec_readings_day, float elet_reading_night, float gas_reading) throws ParseException {
         this.customer_id = customer_id;
-        this.submission_date = submission_date;
+
+        DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
+
+        System.out.println("date:" + fmt.parse(fmt.format(new Date())).toString());
+        this.submission_date = fmt.parse(fmt.format(new Date()));
         this.elec_readings_day = elec_readings_day;
         this.elet_reading_night = elet_reading_night;
         this.gas_reading = gas_reading;
-        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Reading{" +
+                "reading_id=" + reading_id +
+                ", customer_id='" + customer_id + '\'' +
+                ", submission_date=" + submission_date +
+                ", elec_readings_day=" + elec_readings_day +
+                ", elet_reading_night=" + elet_reading_night +
+                ", gas_reading=" + gas_reading +
+                ", status='" + status + '\'' +
+                '}';
     }
 
     public Integer getReading_id() {

@@ -78,4 +78,17 @@ public class Customer {
     public void setType(String type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customer_id='" + customer_id + '\'' +
+                ", password_hash='" + password_hash + '\'' +
+                ", address='" + address + '\'' +
+                ", property_type='" + property_type + '\'' +
+                ", bedroom_num=" + bedroom_num +
+                ", balance=" + balance +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

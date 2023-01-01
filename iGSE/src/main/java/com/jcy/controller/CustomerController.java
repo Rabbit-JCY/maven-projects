@@ -4,21 +4,35 @@ import com.jcy.domain.Customer;
 import com.jcy.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @Controller
-@RequestMapping("/customers")
 public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
 
     @PostMapping("/register")
-    public String register(@RequestBody Customer customer){
-        customerService.insert(customer);
+    @ResponseBody
+    public Customer register(@RequestBody Customer customer) {
+        System.out.println(customer.toString());
         System.out.println("register...");
-        return "login.jsp";
+//        customerService.insert(customer);
+
+        return customer;
     }
+
+    @RequestMapping("/login")
+    @ResponseBody
+    public String register(@RequestBody Map<String, Object> params) {
+        System.out.println("email: " + params.get("email").toString());
+        System.out.println("password:, " + params.get("password").toString());
+        System.out.println("login...");
+//        customerService.insert(customer);
+
+        return "1";
+    }
+
 }
