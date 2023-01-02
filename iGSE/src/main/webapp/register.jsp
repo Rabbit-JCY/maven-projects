@@ -9,7 +9,7 @@
         $(document).ready(function(){
 
             $("#bt").click(function(){
-                alert("send request");
+                // alert("send request");
                 var customer={
                     "customer_id" : $("#email").val(),
                     "password_hash" : $("#pwd").val(),
@@ -25,7 +25,7 @@
                     contentType:"application/json",
                     data:JSON.stringify(customer),
                     success:function (result) {
-                        alert(result["customer_id"]);
+                        // alert(result["customer_id"]);
                         window.location.replace("login.jsp");
 
                     }

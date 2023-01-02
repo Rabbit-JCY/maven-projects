@@ -3,12 +3,12 @@ package com.jcy.domain;
 public class Taiff {
 
     private String taiff_type;
-    private Integer rate;
+    private Float rate;
 
     public Taiff() {
     }
 
-    public Taiff(String taiff_type, Integer rate) {
+    public Taiff(String taiff_type, Float rate) {
         this.taiff_type = taiff_type;
         this.rate = rate;
     }
@@ -21,11 +21,11 @@ public class Taiff {
         this.taiff_type = taiff_type;
     }
 
-    public Integer getRate() {
+    public Float getRate() {
         return rate;
     }
 
-    public void setRate(Integer rate) {
+    public void setRate(Float rate) {
         this.rate = rate;
     }
 }

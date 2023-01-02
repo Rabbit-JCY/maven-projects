@@ -13,6 +13,6 @@ public interface TaiffDao {
     public Taiff getByTaiffType(String taiff_type);
 
     @Select("select * from Taiff")
-    public List<Taiff> findAllUser();
+    public List<Taiff> getAll();
 
 }

@@ -15,7 +15,7 @@
 <script>
     $(document).ready(function(){
         $("#login").click(function(){
-            alert("log in");
+            // alert("log in");
             var params = {
                 "email" : $("#eml").val(),
                 "password" : $("#pwd").val()
@@ -27,8 +27,8 @@
                 contentType:"application/json",
                 data:JSON.stringify(params),
                 success:function (result) {
-                    // alert(result["customer_id"]);
-                    localStorage.setItem("email",$("#eml"));
+                    localStorage.setItem("email",$("#eml").val());
+                    localStorage.setItem("credit", "1000");
                     window.location.replace("dashboard.jsp");
 
                 }
