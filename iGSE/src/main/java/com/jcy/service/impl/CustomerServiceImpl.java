@@ -16,4 +16,15 @@ public class CustomerServiceImpl implements CustomerService {
         customerDao.insert(customer);
         return true;
     }
+
+    public boolean setBalance(Customer customer){
+        return false;
+    }
+
+    @Override
+    public Customer getById(String customer_id) {
+        return customerDao.getById(customer_id);
+    }
+
+
 }

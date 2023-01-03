@@ -13,14 +13,12 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String customer_id, String password_hash, String address, String property_type, Integer bedroom_num, float balance, String type) {
+    public Customer(String customer_id, String password_hash, String address, String property_type, Integer bedroom_num) {
         this.customer_id = customer_id;
         this.password_hash = password_hash;
         this.address = address;
         this.property_type = property_type;
         this.bedroom_num = bedroom_num;
-        this.balance = balance;
-        this.type = type;
     }
 
     public String getCustomer_id() {

@@ -98,13 +98,14 @@
 
 <body>
 
-<h2>Login successfully, welcome to the customer page!</h2>
+<h2 align="center">Login successfully, welcome to the customer page!</h2>
 
+<div align="right">
 <input type="button" value="log out" id="out" style="height:20px;width:50px;background-color: aqua">
-<hr>
+</div><hr>
 
-<h4>Please submit your latest reading in the following form:</h4>
-<table id="reading_tb" border="1" style="width: 20%" >
+<h4 align="center">Please submit your latest reading in the following form:</h4>
+<table id="reading_tb" border="1" style="width: 20%" align="center">
     <thead id="reading_td" bgcolor="#f0f8ff">
     <th>item</th>
     <th>data: kWh</th>
@@ -133,10 +134,15 @@
 
 <br>
 <hr>
-<h4>Please click [check] if you want to check all your readings.</h4>
-<h4>Please click it again if you submit a new reading or pay a bill.</h4>
-<input type="button" value="check" id="check" style="height:20px;width:50px;background-color: aqua">
-<table id="view_tb" border="1" style="width: 50%">
+<h4 align="center">Please click [check] if you want to check all your readings.</h4>
+<h4 align="center">Please click it again if you submit a new reading or pay a bill.</h4>
+
+<div align="center">
+<input type="button" value="check" id="check" style="height:20px;width:50px;background-color: aqua" align="center">
+</div>
+
+<br>
+<table id="view_tb" border="1" style="width: 50%" align="center">
     <thead id="thead" bgcolor="#f0f8ff">
     <th>Reading_id</th>
     <th>Submission_date</th>
@@ -148,8 +154,8 @@
 </table>
 <br>
 <hr>
-<h4>Please choose a reading_id and pay for it.</h4>
-<table border="1">
+<h4 align="center">Please choose a reading_id and pay for it.</h4>
+<table border="1" align="center">
     <tbody>
     <tr>
         <td>

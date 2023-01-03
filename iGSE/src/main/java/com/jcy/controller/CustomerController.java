@@ -33,12 +33,15 @@ public class CustomerController {
 
     @PostMapping("/register")
     @ResponseBody
-    public Customer register(@RequestBody Customer customer) {
-        System.out.println(customer.toString());
-        System.out.println("register...");
-//        customerService.insert(customer);
-
-        return customer;
+    public String register(@RequestBody Customer customer) {
+        String customer_id = customer.getCustomer_id();
+        Customer customer1 = customerService.getById(customer_id);
+        if(customer1 != null){
+            return "Email has already been used.";
+        }else{
+//            customerService.insert(customer);
+            return "success";
+        }
     }
 
     @RequestMapping("/login")
@@ -65,8 +68,10 @@ public class CustomerController {
         for(int i = 0; i < list.size(); i++){
             if(list.get(i).getReading_id() == id){
                 if(i == 0){
-                    return "fail";
-                }else{
+                    return "Fail";
+                } else if (list.get(i).getStatus() == "paid") {
+                    return "Fail. This bill has already been paid.";
+                } else{
                     DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
                     Reading reading = list.get(i);
                     Float day = reading.getElec_readings_day();
@@ -87,7 +92,9 @@ public class CustomerController {
                     long daysBetween = Duration.between(date4, date3).toDays();
                     Float bill = (day-day1)*type1+(night-night1)*type2+(gas-gas1)*type3+daysBetween*type4;
 
-                    return "success, you have paid " + bill.toString() + " £.";
+                    readingService.updateStatus(reading);
+
+                    return "Success. You have paid " + bill.toString() + " £.";
                 }
             }
         }

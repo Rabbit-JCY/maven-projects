@@ -1,11 +1,14 @@
 package com.jcy.dao;
 
+import com.jcy.domain.Customer;
 import com.jcy.domain.Reading;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface ReadingDao {
@@ -16,6 +19,9 @@ public interface ReadingDao {
 
     @Delete("delete from Reading where reading_id=#{reading_id}")
     public void delete(Integer reading_id);
+
+    @Update("update Reading set status=#{status} where reading_id=#{reading_id}")
+    public void updateStatus(Reading reading);
 
     @Select("select * from Reading")
     public List<Reading> getAll();

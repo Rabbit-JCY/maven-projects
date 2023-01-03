@@ -15,7 +15,13 @@ public interface CustomerDao {
     public void insert(Customer customer);
 
     @Delete("delete from Customer where customer_id=#{customer_id}")
-    public void delete(Integer customer_id);
+    public void delete(String customer_id);
+
+    @Select("select * from Customer where customer_id=#{customer_id}")
+    public Customer getById(String customer_id);
+
+    @Select("select * from Customer where status=#{status}")
+    public List<Customer> getALL(String status);
 
 }
 

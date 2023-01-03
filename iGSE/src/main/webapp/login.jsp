@@ -43,13 +43,39 @@
 </script>
 
 <body>
-<h1>Login</h1>
-
-email:       <input type="text" name="email" id="eml"><br>
-password:    <input type="password" name="password" id="pwd"><br>
-
-<input type="button" value="log in" id="login">
-<input type="button" value="register" id="register">
+<br>
+<h2 align="center">Welcome to the login page.</h2><br>
+<hr>
+<br><br><br><br><br>
+<h3 align="center">
+    iGSE – An Energy Tool
+</h3>
+<table border="1" align="center" style="width: 20%">
+    <tbody align="center">
+    <tr>
+        <td style="background-color: aliceblue">
+            email:
+        </td>
+        <td>
+            <input type="text" name="email" id="eml">
+        </td>
+    </tr>
+    <tr>
+        <td style="background-color: aliceblue">
+            password:
+        </td>
+        <td>
+            <input type="password" name="password" id="pwd">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <input type="button" value="log in" id="login" style="background-color: azure;width: 80px">
+            <input type="button" value="register" id="register" style="background-color: azure;width: 80px">
+        </td>
+    </tr>
+    </tbody>
+</table>
 
 
 </body>

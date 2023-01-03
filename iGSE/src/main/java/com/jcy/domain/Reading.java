@@ -1,13 +1,9 @@
 package com.jcy.domain;
 
-import org.springframework.beans.factory.annotation.Value;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.alibaba.fastjson.annotation.JSONField;
 
 public class Reading {
 

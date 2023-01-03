@@ -8,6 +8,8 @@ public interface ReadingService {
 
     public boolean insert(Reading reading);
 
+    public boolean updateStatus(Reading reading);
+
     public Reading getByReaingId(Integer reading_id);
 
     public List<Reading> getByCustomerId(String customer_id);

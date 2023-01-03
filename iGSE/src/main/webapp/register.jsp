@@ -10,26 +10,60 @@
 
             $("#bt").click(function(){
                 // alert("send request");
-                var customer={
-                    "customer_id" : $("#email").val(),
-                    "password_hash" : $("#pwd").val(),
-                    "address": $("#ads").val(),
-                    "property_type": $("#pt").val(),
-                    "bedroom_num": $("#bn").val(),
-                    "balance": $("#bal").val(),
-                    "type": $("#tp").val()
-                };
+                var EVC_code={
+                    "EVC_code" : $("#EVC_code").val()
+                }
                 $.ajax({
-                    url:"/register",
+                    url:"/checkCode",
                     type:"Post",
                     contentType:"application/json",
-                    data:JSON.stringify(customer),
+                    data:JSON.stringify(EVC_code),
                     success:function (result) {
-                        // alert(result["customer_id"]);
-                        window.location.replace("login.jsp");
+                        if(result.toString() == "success"){
+                            alert("Code is valid.")
+                            var customer={
+                                "customer_id" : $("#email").val(),
+                                "password_hash" : $("#pwd").val(),
+                                "address": $("#ads").val(),
+                                "property_type": $("#p_type").val(),
+                                "bedroom_num": $("#bn").val(),
+                                "balance": 200,
+                                "type": "customer"
+                            };
+                            $.ajax({
+                                url:"/register",
+                                type:"Post",
+                                contentType:"application/json",
+                                data:JSON.stringify(customer),
+                                success:function (result) {
+                                    if(result.toString() === "success"){
+                                        var params={
+                                            "EVC_code": $("#EVC_code").val()
+                                        }
+                                        $.ajax({
+                                            url:"/useCode",
+                                            type:"Post",
+                                            contentType:"application/json",
+                                            data:JSON.stringify(params),
+                                            success: function (data){
+                                                alert(data.toString());
+                                            }
+                                        })
+                                        alert("Register successfully!")
+                                        window.location.replace("login.jsp");
+                                    }else{
+                                        alert("Fail. " + result.toString());
+                                    }
+                                }
+
+                            })
+                        }else{
+                            alert(result.toString());
+                        }
 
                     }
                 })
+
             });
 
             $("#return").click(function (){
@@ -38,30 +72,67 @@
 
         });
     </script>
-
-
-
-
 </head>
 
-
 <body>
+<br>
+<h2 align="center">Welcome to the register page.</h2>
+<br>
+<hr>
+<br><br><br><br><br>
+<h3 align="center">
+    iGSE – An Energy Tool
+</h3>
+<table align="center" border="1">
+    <tbody>
+    <tr>
+        <td>email</td>
+        <td><input type="text" id="email" name="customer_id" placeholder="email"></td>
+    </tr>
+    <tr>
+        <td>password</td>
+        <td> <input type="password" name="password_hash" id="pwd" placeholder="password"></td>
+    </tr>
+    <tr>
+        <td>address</td>
+        <td><input type="text" name="address" id="ads" placeholder="address"></td>
+    </tr>
+    <tr>
+        <td>property_type</td>
+        <td>
+            <select id="p_type" name="p_type">
+                <option value="detached" select="selected">detached</option>
+                <option value="semi-detached">semi-detached</option>
+                <option value="terraced">terraced</option>
+                <option value="flat">flat</option>
+                <option value="cottage">cottage</option>
+                <option value="bungalow">bungalow</option>
+                <option value="mansion">mansion</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>bedroom_num</td>
+        <td><input type="number" min="0" name="bedroom_num" id="bn" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^0-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
+                   onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^0-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></td>
+    </tr>
+    <tr>
+        <td>EVC_code</td>
+        <td><input type="text" name="EVC_code" id="EVC_code"></td>
+    </tr>
+
+    <tr align="center">
+        <td colspan="2">
+            <input type="button" value="register" id="bt" style="background-color: azure">
+            <input type="button" value="return" id="return" style="background-color: azure">
+        </td>
+    </tr>
+    </tbody>
+</table>
 
 <form>
-    email address: <input type="text" id="email" name="customer_id" id="email" placeholder="email address"><br>
-    password:      <input type="password" name="password_hash" id="pwd" placeholder="password"><br>
-    address:       <input type="test" name="address" id="ads" placeholder="address"><br>
-    property_type: <input type="text" name="property_type" id="pt"><br>
-    bedroom_num:   <input type="number" name="bedroom_num" id="bn"><br>
-    balance:       <input type="number" name="balance" id="bal"><br>
-    type:          <input type="text" name="type" id="tp"><br>
-    <input type="button" value="register" id="bt">
-    <input type="button" value="return" id="return">
 
 
-<%--    <div id="div1">--%>
-<%--        <h2>使用 jQuery AJAX 修改文本内容</h2>--%>
-<%--    </div>--%>
 </form>
 
 </body>
