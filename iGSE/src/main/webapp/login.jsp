@@ -13,6 +13,7 @@
 
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 <script>
+    localStorage.setItem("email","test@gmail.com")
     $(document).ready(function(){
         $("#login").click(function(){
             // alert("log in");
@@ -27,9 +28,13 @@
                 contentType:"application/json",
                 data:JSON.stringify(params),
                 success:function (result) {
-                    localStorage.setItem("email",$("#eml").val());
-                    localStorage.setItem("credit", "1000");
-                    window.location.replace("dashboard.jsp");
+                    if(result.toString() == "success"){
+                        localStorage.setItem("email",$("#eml").val());
+                        window.location.replace("dashboard.jsp");
+                    }else{
+                        alert(result.toString());
+                    }
+
 
                 }
             });
@@ -58,6 +63,9 @@
         </td>
         <td>
             <input type="text" name="email" id="eml">
+            <script>
+                $("#eml").val(localStorage.getItem("email"))
+            </script>
         </td>
     </tr>
     <tr>

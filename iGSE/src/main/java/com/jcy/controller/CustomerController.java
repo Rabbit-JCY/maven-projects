@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.MessageDigest;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,7 +40,10 @@ public class CustomerController {
         if(customer1 != null){
             return "Email has already been used.";
         }else{
-//            customerService.insert(customer);
+            String pwd = customer.getPassword_hash();
+            String pwd2 = getSHA256(pwd);
+            customer.setPassword_hash(pwd2);
+            customerService.insert(customer);
             return "success";
         }
     }
@@ -47,12 +51,46 @@ public class CustomerController {
     @RequestMapping("/login")
     @ResponseBody
     public String login(@RequestBody Map<String, Object> params) {
-        System.out.println("email: " + params.get("email").toString());
-        System.out.println("password:, " + params.get("password").toString());
-        System.out.println("login...");
-//        customerService.insert(customer);
+        String email = params.get("email").toString();
+        String password = params.get("password").toString();
+        String password2 = getSHA256(password);
+        Customer customer = customerService.getById(email);
+        if(customer == null){
+            return "Email does not exist!";
+        }else{
+            String password_hash = customer.getPassword_hash();
+            if(password2.equals(password_hash)){
+                return "success";
+            }else{
+                return "Password error!";
+            }
+        }
+    }
 
-        return "1";
+    @PostMapping("/getBalance")
+    @ResponseBody
+    public String getBalance(@RequestBody Map<String,String> mp){
+        String email = mp.get("customer_id").toString();
+        Float balance = customerService.getById(email).getBalance();
+        return balance.toString();
+    }
+
+    public String getSHA256(String data) {
+        String result = null;
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(data.getBytes("UTF-8"));
+            return bytesToHex2(hash); // make it printable
+        }catch(Exception ex) {
+            ex.printStackTrace(); }
+        return result;
+    }
+    private String bytesToHex2(byte[] hash) {
+        final StringBuilder builder = new StringBuilder();
+        for (byte b : hash) {
+            builder.append(String.format("%02x", b));
+        }
+        return builder.toString();
     }
 
     @RequestMapping("/pay")
@@ -68,8 +106,8 @@ public class CustomerController {
         for(int i = 0; i < list.size(); i++){
             if(list.get(i).getReading_id() == id){
                 if(i == 0){
-                    return "Fail";
-                } else if (list.get(i).getStatus() == "paid") {
+                    return "Fail. This is the first reading.";
+                } else if (list.get(i).getStatus().equals("paid")) {
                     return "Fail. This bill has already been paid.";
                 } else{
                     DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
@@ -92,9 +130,20 @@ public class CustomerController {
                     long daysBetween = Duration.between(date4, date3).toDays();
                     Float bill = (day-day1)*type1+(night-night1)*type2+(gas-gas1)*type3+daysBetween*type4;
 
-                    readingService.updateStatus(reading);
+                    Customer customer = customerService.getById(params.get("customer_id").toString());
+                    Float balance = customer.getBalance();
+                    if (balance >= bill){
+                        readingService.updateStatus(reading);
+                        customer.setBalance(balance - bill);
+                        customerService.updateBalance(customer);
+                        return "Success. You have paid " + bill.toString() + " £.";
+                    }else{
+                        return "Fail. Your balance is less than "+ bill.toString() + " £.";
+                    }
 
-                    return "Success. You have paid " + bill.toString() + " £.";
+
+
+
                 }
             }
         }

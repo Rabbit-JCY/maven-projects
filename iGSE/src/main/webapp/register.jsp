@@ -113,8 +113,8 @@
     </tr>
     <tr>
         <td>bedroom_num</td>
-        <td><input type="number" min="0" name="bedroom_num" id="bn" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^0-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
-                   onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^0-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></td>
+        <td><input type="number" min="1" value="1" name="bedroom_num" id="bn" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
+                   onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></td>
     </tr>
     <tr>
         <td>EVC_code</td>

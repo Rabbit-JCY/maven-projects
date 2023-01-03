@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;Charset=utf-8" language="java" import="java.util.*" pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,9 +24,53 @@
             }
         }
 
+        function loadreadings(){
+
+        }
+
         $(document).ready(function(){
+            var p={
+                "customer_id" : "test@gmail.com"
+            }
+            $.ajax({
+                url:"/getBalance",
+                type:"Post",
+                contentType:"application/json",
+                data:JSON.stringify(p),
+                success:function (result) {
+                    var td = $("#balance");
+                    td.append(result.toString());
+                }
+            });
+
+            var params = {
+                "customer_id": localStorage.getItem("email")
+            };
+            $.ajax({
+                url: '/getByCustomerId',
+                type: 'post',
+                contentType:"application/json",
+                data: JSON.stringify(params),
+                success: function (res) {
+                    var records = res;
+                    cleanView();
+                    for (var i = 0; i < records.length; i++) {
+                        var tr = $("<tr>" +
+                            "<td>" + records[i]["reading_id"] + "</td>" +
+                            "<td>" + timestampToTime(records[i]["submission_date"]) + "</td>" +
+                            "<td>" + records[i]["elec_readings_day"] + "</td>" +
+                            "<td>" + records[i]["elet_reading_night"] + "</td>" +
+                            "<td>" + records[i]["gas_reading"] + "</td>" +
+                            "<td>" + records[i]["status"]+ "</td>" +
+                            "</tr>");
+                        var table = $("#view_tb");
+                        table.append(tr);
+                    }
+                }
+            })
+
             $("#out").click(function (){
-                alert("log out...")
+                // alert("log out...")
                 window.location.replace("login.jsp");
             });
 
@@ -43,34 +88,7 @@
                     data:JSON.stringify(params),
                     success:function (result) {
                         alert("submit successfully!");
-                    }
-                })
-            });
-
-            $("#check").click(function () {
-                var params = {
-                    "customer_id": localStorage.getItem("email")
-                };
-                $.ajax({
-                    url: '/getByCustomerId',
-                    type: 'post',
-                    contentType:"application/json",
-                    data: JSON.stringify(params),
-                    success: function (res) {
-                        var records = res;
-                        cleanView();
-                        for (var i = 0; i < records.length; i++) {
-                            var $tr = $("<tr>" +
-                                "<td>" + records[i]["reading_id"] + "</td>" +
-                                "<td>" + timestampToTime(records[i]["submission_date"]) + "</td>" +
-                                "<td>" + records[i]["elec_readings_day"] + "</td>" +
-                                "<td>" + records[i]["elet_reading_night"] + "</td>" +
-                                "<td>" + records[i]["gas_reading"] + "</td>" +
-                                "<td>" + records[i]["status"]+ "</td>" +
-                                "</tr>");
-                            var $table = $("#view_tb");
-                            $table.append($tr);
-                        }
+                        location.reload();
                     }
                 })
             });
@@ -87,6 +105,7 @@
                     data:JSON.stringify(params),
                     success:function (result) {
                         alert(result.toString());
+                        location.reload();
                     }
                 })
             })
@@ -134,14 +153,7 @@
 
 <br>
 <hr>
-<h4 align="center">Please click [check] if you want to check all your readings.</h4>
-<h4 align="center">Please click it again if you submit a new reading or pay a bill.</h4>
-
-<div align="center">
-<input type="button" value="check" id="check" style="height:20px;width:50px;background-color: aqua" align="center">
-</div>
-
-<br>
+<h4 align="center">Here are your readings.</h4>
 <table id="view_tb" border="1" style="width: 50%" align="center">
     <thead id="thead" bgcolor="#f0f8ff">
     <th>Reading_id</th>
@@ -155,11 +167,19 @@
 <br>
 <hr>
 <h4 align="center">Please choose a reading_id and pay for it.</h4>
-<table border="1" align="center">
+<table name="pay_tb" border="1" align="center">
     <tbody>
     <tr>
-        <td>
-            reading_id:
+        <td align="center" >
+            balance
+        </td>
+        <td align="center" id="balance">
+
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            reading_id
         </td>
         <td>
             <input type="number" id="pay_id">

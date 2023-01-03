@@ -17,6 +17,9 @@ public interface CustomerDao {
     @Delete("delete from Customer where customer_id=#{customer_id}")
     public void delete(String customer_id);
 
+    @Update("update Customer set balance=#{balance} where customer_id=#{customer_id}")
+    public void updateBalance(Customer customer);
+
     @Select("select * from Customer where customer_id=#{customer_id}")
     public Customer getById(String customer_id);
 

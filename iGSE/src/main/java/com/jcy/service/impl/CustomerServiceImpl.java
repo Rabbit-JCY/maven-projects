@@ -17,8 +17,9 @@ public class CustomerServiceImpl implements CustomerService {
         return true;
     }
 
-    public boolean setBalance(Customer customer){
-        return false;
+    public boolean updateBalance(Customer customer){
+        customerDao.updateBalance(customer);
+        return true;
     }
 
     @Override

@@ -7,7 +7,7 @@ public interface CustomerService {
 
     public boolean insert(Customer customer);
 
-    public boolean setBalance(Customer customer);
+    public boolean updateBalance(Customer customer);
 
     public Customer getById(String customer_id);
 
