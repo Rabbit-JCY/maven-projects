@@ -4,8 +4,10 @@ import com.jcy.dao.TaiffDao;
 import com.jcy.domain.Customer;
 import com.jcy.domain.Reading;
 import com.jcy.domain.Taiff;
+import com.jcy.domain.Voucher;
 import com.jcy.service.CustomerService;
 import com.jcy.service.ReadingService;
+import com.jcy.service.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +33,9 @@ public class CustomerController {
     private ReadingService readingService;
     @Autowired
     private TaiffDao taiffDao;
+
+    @Autowired
+    private VoucherService voucherService;
 
     @PostMapping("/register")
     @ResponseBody
@@ -63,6 +68,28 @@ public class CustomerController {
                 return "success";
             }else{
                 return "Password error!";
+            }
+        }
+    }
+
+    @PostMapping("/top_up")
+    @ResponseBody
+    public String topUp(@RequestBody Map<String,String> mp){
+        String customer_id = mp.get("customer_id");
+        String EVC_code = mp.get("EVC_code");
+        Voucher voucher = voucherService.getByCode(EVC_code);
+        if(voucher == null){
+            return "Fail. Invalid EVC_code!";
+        }else{
+            if(voucher.getUsed() == 1){
+                return "Fail. This EVC_code has already been used!";
+            }else{
+                voucher.setUsed(1);
+                voucherService.update(voucher);
+                Customer customer = customerService.getById(customer_id);
+                customer.setBalance(customer.getBalance() + 200);
+                customerService.updateBalance(customer);
+                return "Success.";
             }
         }
     }
@@ -140,15 +167,11 @@ public class CustomerController {
                     }else{
                         return "Fail. Your balance is less than "+ bill.toString() + " £.";
                     }
-
-
-
-
                 }
             }
         }
 
-        return "fail";
+        return "Fail. This reading_id does not exist!";
     }
 
 }

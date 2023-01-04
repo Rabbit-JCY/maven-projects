@@ -24,13 +24,9 @@
             }
         }
 
-        function loadreadings(){
-
-        }
-
         $(document).ready(function(){
             var p={
-                "customer_id" : "test@gmail.com"
+                "customer_id" : localStorage.getItem("email")
             }
             $.ajax({
                 url:"/getBalance",
@@ -87,7 +83,7 @@
                     contentType:"application/json",
                     data:JSON.stringify(params),
                     success:function (result) {
-                        alert("submit successfully!");
+                        alert(result.toString());
                         location.reload();
                     }
                 })
@@ -100,6 +96,23 @@
                 };
                 $.ajax({
                     url:"/pay",
+                    type:"Post",
+                    contentType:"application/json",
+                    data:JSON.stringify(params),
+                    success:function (result) {
+                        alert(result.toString());
+                        location.reload();
+                    }
+                })
+            })
+
+            $("#top_up_bt").click(function (){
+                var params = {
+                    "customer_id": localStorage.getItem("email"),
+                    "EVC_code": $("#EVC_code2").val()
+                };
+                $.ajax({
+                    url:"/top_up",
                     type:"Post",
                     contentType:"application/json",
                     data:JSON.stringify(params),
@@ -133,14 +146,14 @@
     <tbody align="center">
     <tr>
         <td>ele_day</td>
-        <td><input type="number" min="0" id="day" name="day"></td>
+        <td><input type="number" min="0" id="day" name="day" value="0.0"></td>
     </tr>
     <tr>
         <td>ele_night</td>
-        <td><input type="number" min="0" id="night" name="night"></td>
+        <td><input type="number" min="0" id="night" name="night" value="0.0"></td>
     <tr>
         <td>gas</td>
-        <td><input type="number" min="0" id="gas" name="gas"></td>
+        <td><input type="number" min="0" id="gas" name="gas" value="0.0"></td>
     </tr>
     <tr>
         <td width="100"  colspan="2" align="center">
@@ -170,7 +183,7 @@
 <table name="pay_tb" border="1" align="center">
     <tbody>
     <tr>
-        <td align="center" >
+        <td align="center" style="background-color: aliceblue">
             balance
         </td>
         <td align="center" id="balance">
@@ -178,11 +191,11 @@
         </td>
     </tr>
     <tr>
-        <td align="center">
+        <td align="center" style="background-color: aliceblue">
             reading_id
         </td>
         <td>
-            <input type="number" id="pay_id">
+            <input type="number" id="pay_id" placeholder="reading_id">
         </td>
     </tr>
     <tr>
@@ -192,6 +205,27 @@
     </tr>
     </tbody>
 </table>
+<br>
+<hr>
+<h4 align="center">Please top up your account with a valid EVC_code.</h4>
+<table name="top_up_tb" border="1" align="center">
+    <tbody>
+    <tr>
+        <td align="center" style="background-color: aliceblue">
+            EVC_code
+        </td>
+        <td>
+            <input type="text" id="EVC_code2" placeholder="EVC_code">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" align="center">
+            <input type="button" value="top up" id="top_up_bt" style="background-color: azure">
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
 
 
 </body>

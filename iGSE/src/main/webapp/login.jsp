@@ -13,7 +13,9 @@
 
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 <script>
-    localStorage.setItem("email","test@gmail.com")
+    if(localStorage.getItem("email") == null){
+        localStorage.setItem("email","test@gmail.com")
+    }
     $(document).ready(function(){
         $("#login").click(function(){
             // alert("log in");

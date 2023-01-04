@@ -9,7 +9,6 @@
         $(document).ready(function(){
 
             $("#bt").click(function(){
-                // alert("send request");
                 var EVC_code={
                     "EVC_code" : $("#EVC_code").val()
                 }
@@ -20,7 +19,6 @@
                     data:JSON.stringify(EVC_code),
                     success:function (result) {
                         if(result.toString() == "success"){
-                            alert("Code is valid.")
                             var customer={
                                 "customer_id" : $("#email").val(),
                                 "password_hash" : $("#pwd").val(),
@@ -86,19 +84,19 @@
 <table align="center" border="1">
     <tbody>
     <tr>
-        <td>email</td>
+        <td style="background-color: aliceblue">email</td>
         <td><input type="text" id="email" name="customer_id" placeholder="email"></td>
     </tr>
     <tr>
-        <td>password</td>
+        <td style="background-color: aliceblue">password</td>
         <td> <input type="password" name="password_hash" id="pwd" placeholder="password"></td>
     </tr>
     <tr>
-        <td>address</td>
+        <td style="background-color: aliceblue">address</td>
         <td><input type="text" name="address" id="ads" placeholder="address"></td>
     </tr>
     <tr>
-        <td>property_type</td>
+        <td style="background-color: aliceblue">property_type</td>
         <td>
             <select id="p_type" name="p_type">
                 <option value="detached" select="selected">detached</option>
@@ -112,13 +110,13 @@
         </td>
     </tr>
     <tr>
-        <td>bedroom_num</td>
+        <td style="background-color: aliceblue">bedroom_num</td>
         <td><input type="number" min="1" value="1" name="bedroom_num" id="bn" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
                    onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"></td>
     </tr>
     <tr>
-        <td>EVC_code</td>
-        <td><input type="text" name="EVC_code" id="EVC_code"></td>
+        <td style="background-color: aliceblue">EVC_code</td>
+        <td><input type="text" name="EVC_code" id="EVC_code" placeholder="EVC_code"></td>
     </tr>
 
     <tr align="center">
