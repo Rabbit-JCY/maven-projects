@@ -1,10 +1,7 @@
 package com.jcy.controller;
 
 import com.jcy.dao.TaiffDao;
-import com.jcy.domain.Customer;
-import com.jcy.domain.Reading;
-import com.jcy.domain.Taiff;
-import com.jcy.domain.Voucher;
+import com.jcy.domain.*;
 import com.jcy.service.CustomerService;
 import com.jcy.service.ReadingService;
 import com.jcy.service.VoucherService;
@@ -20,6 +17,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -100,6 +98,50 @@ public class CustomerController {
         String email = mp.get("customer_id").toString();
         Float balance = customerService.getById(email).getBalance();
         return balance.toString();
+    }
+
+    @RequestMapping("/getStatistics")
+    @ResponseBody
+    private List<Statistics> getStatistics(){
+        List<Statistics> list1 = new ArrayList<>();
+        List<Customer> list2 = customerService.getAll();
+        for(int i = 0; i < list2.size(); i++){
+            Customer customer = list2.get(i);
+            String customer_id = customer.getCustomer_id();
+            List<Reading> list_r = readingService.getByCustomerId(customer_id);
+            if(list_r.size() == 0){
+                Statistics st = new Statistics();
+                st.setCustomer_id(customer_id);
+                list1.add(st);
+            }else{
+                DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
+                Reading reading = list_r.get(list_r.size()-1);
+                Reading reading1 = list_r.get(list_r.size()-2);
+
+                Float day = reading.getElec_readings_day();
+                Float night = reading.getElet_reading_night();
+                Float gas = reading.getGas_reading();
+                String date = fmt.format(reading.getSubmission_date());
+
+                Float day1 = reading1.getElec_readings_day();
+                Float night1 = reading1.getElet_reading_night();
+                Float gas1 = reading1.getGas_reading();
+                String date1 = fmt.format(reading1.getSubmission_date());
+
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDateTime date3 = LocalDate.parse(date, dtf).atStartOfDay();
+                LocalDateTime date4 = LocalDate.parse(date1, dtf).atStartOfDay();
+                long daysBetween = Duration.between(date4, date3).toDays() + 1;
+
+                Float avg_gas = (gas - gas1) / daysBetween;
+                Float avg_ele_day =  (day - day1) / daysBetween;
+                Float avg_ele_night =  (night - night1) / daysBetween;
+                Statistics st = new Statistics(customer_id,avg_gas,avg_ele_day,avg_ele_night);
+                list1.add(st);
+            }
+        }
+
+        return list1;
     }
 
     public String getSHA256(String data) {

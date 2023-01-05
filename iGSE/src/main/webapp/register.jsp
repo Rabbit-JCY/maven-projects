@@ -44,7 +44,7 @@
                                             contentType:"application/json",
                                             data:JSON.stringify(params),
                                             success: function (data){
-                                                alert(data.toString());
+                                                // alert(data.toString());
                                             }
                                         })
                                         alert("Register successfully!")

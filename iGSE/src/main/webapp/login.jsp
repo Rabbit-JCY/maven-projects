@@ -31,13 +31,17 @@
                 data:JSON.stringify(params),
                 success:function (result) {
                     if(result.toString() == "success"){
-                        localStorage.setItem("email",$("#eml").val());
-                        window.location.replace("dashboard.jsp");
+
+                        if($("#eml").val() == "gse@shangrila.gov.un"){
+                            localStorage.setItem("email","gse@shangrila.gov.un");
+                            window.location.replace("admin_db.jsp")
+                        }else{
+                            localStorage.setItem("email",$("#eml").val());
+                            window.location.replace("dashboard.jsp");
+                        }
                     }else{
                         alert(result.toString());
                     }
-
-
                 }
             });
         })

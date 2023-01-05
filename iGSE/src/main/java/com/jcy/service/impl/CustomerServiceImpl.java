@@ -6,6 +6,8 @@ import com.jcy.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -25,6 +27,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer getById(String customer_id) {
         return customerDao.getById(customer_id);
+    }
+
+    @Override
+    public List<Customer> getAll() {
+        return customerDao.getALL("customer");
     }
 
 

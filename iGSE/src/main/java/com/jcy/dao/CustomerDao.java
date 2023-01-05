@@ -23,8 +23,8 @@ public interface CustomerDao {
     @Select("select * from Customer where customer_id=#{customer_id}")
     public Customer getById(String customer_id);
 
-    @Select("select * from Customer where status=#{status}")
-    public List<Customer> getALL(String status);
+    @Select("select * from Customer where type=#{type}")
+    public List<Customer> getALL(String type);
 
 }
 

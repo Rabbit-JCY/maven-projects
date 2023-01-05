@@ -81,7 +81,6 @@ public class ReadingController {
     @ResponseBody
     public List<Reading> getByCustomerId(@RequestBody Map<String,String> params){
         String id = params.get("customer_id");
-//        System.out.println("customer_id:" + id.toString());
         return readingService.getByCustomerId(id);
     }
 
