@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
-    <file type="web" url="file://$PROJECT_DIR$/iGSE" />
+    <file type="web" url="file://$PROJECT_DIR$/iSubmit" />
     <file type="web" url="file://$PROJECT_DIR$/springmvc_01_quickstart" />
     <file type="web" url="file://$PROJECT_DIR$/web01" />
   </component>
@@ -11,6 +11,7 @@
       <list>
         <option value="$PROJECT_DIR$/springmvc_01_quickstart/pom.xml" />
         <option value="$PROJECT_DIR$/iGSE/pom.xml" />
+        <option value="$PROJECT_DIR$/iSubmit/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
